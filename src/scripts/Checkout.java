@@ -13,7 +13,7 @@ import event.CheckoutEvent;
 public class Checkout {
 	@Test
 	public class ChatFacebook extends ScriptBase {
-		public void test_Chat() throws InterruptedException {
+		public void test_Checkout() throws InterruptedException {
 			LoginDetailBuilder loginDetailBuilder = new LoginDetailBuilder();
 			SearchDetailBuilder searchDetailBuilder = new SearchDetailBuilder();
 			CheckoutDetailBuilder checkoutDatailBuilder = new CheckoutDetailBuilder();

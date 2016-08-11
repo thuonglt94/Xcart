@@ -1,5 +1,6 @@
 package event;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import detail.CheckoutDetail;
@@ -8,6 +9,7 @@ import detail.SearchDetail;
 import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.SearchPage;
+import until.WaitFor;
 
 public class CheckoutEvent {
 	WebDriver driver;
@@ -42,14 +44,15 @@ public class CheckoutEvent {
 		loginPage.enterEmailTextbox(loginDetail.getEmail());
 		loginPage.enterPassTextbox(loginDetail.getPass());
 		loginPage.clickSignButton();
+		waitForSearchResultsToAppear();
 	}
 
 	public void navigateSearch() {
 		searchPage = new SearchPage(driver);
 	}
 
-	public void searchFriend() throws InterruptedException {
-		Thread.sleep(3000);
+	public void searchFriend() {
+		
 		searchPage.enterSearchTextbox(searchDetail.getSearch());
 		searchPage.clickSearchButton();
 		searchPage.clickSelectProduct();
@@ -71,5 +74,10 @@ public class CheckoutEvent {
 		checkoutPage.enterFirstNameTextbox(checkoutDetail.getState());
 		checkoutPage.enterFirstNameTextbox(checkoutDetail.getPhone());
 
+	}
+
+	private void waitForSearchResultsToAppear() {
+		// TODO Auto-generated method stub
+		new WaitFor(driver).presenceOfTheElement(By.id("substring-default"));
 	}
 }
