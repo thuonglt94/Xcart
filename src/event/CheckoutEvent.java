@@ -9,7 +9,7 @@ import detail.SearchDetail;
 import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.SearchPage;
-import until.WaitFor;
+import util.WaitFor;
 
 public class CheckoutEvent {
 	WebDriver driver;
@@ -41,18 +41,26 @@ public class CheckoutEvent {
 
 	public void login(LoginDetail loginDetail) {
 		loginPage.clickLinkSign();
+		waitForEmailTextBoxToAppear();
 		loginPage.enterEmailTextbox(loginDetail.getEmail());
 		loginPage.enterPassTextbox(loginDetail.getPass());
 		loginPage.clickSignButton();
-		waitForSearchResultsToAppear();
+
+	}
+
+	private void waitForEmailTextBoxToAppear() {
+		// TODO Auto-generated method stub
+		new WaitFor(driver).presenceOfTheElement(By.id("login-email"));
+
 	}
 
 	public void navigateSearch() {
 		searchPage = new SearchPage(driver);
 	}
 
-	public void searchFriend() {
-		
+	public void searchProduct(SearchDetail searchDetail) {
+		//waitForSearchTextBoxToAppear();
+		waitForCloseButtonHidden();
 		searchPage.enterSearchTextbox(searchDetail.getSearch());
 		searchPage.clickSearchButton();
 		searchPage.clickSelectProduct();
@@ -65,7 +73,7 @@ public class CheckoutEvent {
 		checkoutPage = new CheckoutPage(driver);
 	}
 
-	public void FillCheckoutForm() {
+	public void FillCheckoutForm(CheckoutDetail checkoutDetail) {
 		checkoutPage.enterFirstNameTextbox(checkoutDetail.getFirstName());
 		checkoutPage.enterLastNameTextbox(checkoutDetail.getLastName());
 		checkoutPage.enterAddressTextbox(checkoutDetail.getAddress());
@@ -76,8 +84,8 @@ public class CheckoutEvent {
 
 	}
 
-	private void waitForSearchResultsToAppear() {
+	private void waitForCloseButtonHidden() {
 		// TODO Auto-generated method stub
-		new WaitFor(driver).presenceOfTheElement(By.id("substring-default"));
+		new WaitFor(driver).hiddenOfTheElement(By.cssSelector(".ui-dialog-titlebar-close"));
 	}
 }

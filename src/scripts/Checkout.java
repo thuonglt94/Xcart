@@ -1,5 +1,6 @@
 package scripts;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import builder.CheckoutDetailBuilder;
@@ -20,21 +21,22 @@ public class Checkout {
 
 			loginDetailBuilder.withEmail("huonggg@gmail.com").withPass("1");
 			searchDetailBuilder.withSearch("iphone");
-			checkoutDatailBuilder.withFirstName("aa").withLastName("dgh").withAddress("dgtbhb").withCity("rbrb").withCountry("United States")
-					.withState("California").withPhone("145");
+			checkoutDatailBuilder.withFirstName("aa").withLastName("dgh").withAddress("dgtbhb").withCity("rbrb")
+					.withCountry("United States").withState("California").withPhone("145");
 
 			LoginDetail loginDetail = loginDetailBuilder.build();
 			SearchDetail searchDetail = searchDetailBuilder.build();
 			CheckoutDetail checkoutDetail = checkoutDatailBuilder.build();
+			Assert.assertEquals(true, false);
 
-			CheckoutEvent user = new CheckoutEvent(driver, loginDetail, searchDetail, checkoutDetail);
+			CheckoutEvent user = new CheckoutEvent(driver);
 
 			given(user).navigateLogInForm();
 			and(user).login(loginDetail);
 			and(user).navigateSearch();
-			when(user).searchFriend();
+			when(user).searchProduct(searchDetail);
 			and(user).navigateCheckout();
-			then(user).FillCheckoutForm();
+			then(user).FillCheckoutForm(checkoutDetail);
 
 		}
 	}
